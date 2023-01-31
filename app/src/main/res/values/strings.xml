@@ -1,11 +1,10 @@
 <resources>
-    <string name="app_name">Find a Brewery</string>
+    <string name="app_name">Brewery</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">Brewery search</string>
     <string name="second_fragment_label">Breweries saved</string>
-    <string name="next">Next</string>
+    <string name="search">Find a Brewery!</string>
     <string name="previous">Previous</string>
-    <string name="hello_first_fragment">Find a nearest brewery around you!</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="distance_default_value">25 km</string>
 </resources>

@@ -1,7 +1,7 @@
 package com.example.jbe_app
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -10,17 +10,28 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
-import android.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.jbe_app.data.PostModel
 import com.example.jbe_app.databinding.ActivityMainBinding
+import com.example.jbe_app.viewmodel.BreweryListModelView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_second.*
 
 
-
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BreweryAdapter.BreweryListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var vm: BreweryListModelView
+    private lateinit var adapter: BreweryAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +69,26 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+        adapter = BreweryAdapter(this)
+
+        val test: RecyclerView = findViewById(R.id.rv_home)
+        test.layoutManager = LinearLayoutManager(this)
+        rv_home.adapter = adapter
+
+        vm = ViewModelProvider(this)[BreweryListModelView::class.java]
+        vm.fetchAllPosts()
+
+
+        vm.postModelListLiveData?.observe(this, Observer {
+            if (it!=null){
+                rv_home.visibility = View.VISIBLE
+                adapter.setData(it as ArrayList<PostModel>)
+            }else{
+                Log.i("tag","Something went wrong")
+            }
+           //progress_load.visibility = View.GONE
+        })
+
 
     }
 
@@ -81,5 +112,9 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    override fun onItemDeleted(postModel: PostModel, position: Int) {
+        TODO("Not yet implemented")
     }
 }

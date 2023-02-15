@@ -18,7 +18,7 @@
             android:textColor="@android:color/black"
             android:textStyle="bold"
             android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="@id/img_delete"
+            app:layout_constraintTop_toTopOf="@id/img_favourite"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
@@ -35,8 +35,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_delete"
-            android:id="@+id/img_delete"
+            android:src="@drawable/ic_action_favourite"
+            android:id="@+id/img_favourite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:padding="10dp"/>

@@ -7,13 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jbe_app.data.PostModel
-import com.example.jbe_app.databinding.ActivityMainBinding
 import com.example.jbe_app.databinding.FragmentSecondBinding
 import com.example.jbe_app.viewmodel.BreweryListModelView
-import kotlinx.android.synthetic.main.fragment_second.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.

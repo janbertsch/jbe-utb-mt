@@ -26,7 +26,7 @@ class Brewery {
 
             @SuppressLint("NullSafeMutableLiveData")
             override fun onFailure(call: Call<List<PostModel>>, t: Throwable) {
-                data.value = null // buildable with error
+                data.value = null
             }
 
             @SuppressLint("NullSafeMutableLiveData")
@@ -38,9 +38,9 @@ class Brewery {
                 val res = response.body()
                 if (response.code() == 200 &&  res!=null){
                     Log.i("tag", "DID a FETCHALL with 200 " + res.toString())
-                    data.value = res // buildable with error
+                    data.value = res
                 }else{
-                    data.value = null // buildable with error
+                    data.value = null
                 }
             }
         })

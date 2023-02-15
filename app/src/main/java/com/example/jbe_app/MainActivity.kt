@@ -11,17 +11,18 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.jbe_app.data.PostModel
 import com.example.jbe_app.databinding.ActivityMainBinding
 import com.example.jbe_app.viewmodel.BreweryListModelView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_second.*
+import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.item_view.*
 
 
 class MainActivity : AppCompatActivity(), BreweryAdapter.BreweryListener {
@@ -52,8 +53,15 @@ class MainActivity : AppCompatActivity(), BreweryAdapter.BreweryListener {
         }
 
 
+
         val distanceSeekBar: SeekBar = findViewById(R.id.volume_seek_bar)
         val distanceTextView: TextView = findViewById(R.id.distance_text_view)
+        val buttonFind: Button = findViewById(R.id.button_first)
+        //val secondFragment: Fragment? = supportFragmentManager.findFragmentByTag("frstFrg")
+        //val recyclerView: RecyclerView? = secondFragment?.view?.findViewById(R.id.rv_home)
+        // val fragmenNavControl = secondFragment?.findNavController()
+
+
 
         distanceSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -69,26 +77,29 @@ class MainActivity : AppCompatActivity(), BreweryAdapter.BreweryListener {
             }
 
         })
-        adapter = BreweryAdapter(this)
 
-        val test: RecyclerView = findViewById(R.id.rv_home)
-        test.layoutManager = LinearLayoutManager(this)
-        rv_home.adapter = adapter
+        buttonFind.setOnClickListener {
+            Log.i("TAG", "Clicked!!!!!!")
+            vm = ViewModelProvider(this)[BreweryListModelView::class.java]
+            vm.fetchAllPosts()
 
-        vm = ViewModelProvider(this)[BreweryListModelView::class.java]
-        vm.fetchAllPosts()
+            vm.postModelListLiveData?.observe(this, Observer {
+                if (it!=null){
+                    rv_home.visibility = View.VISIBLE
+                    adapter.setData(it as ArrayList<PostModel>)
+                }else {
+                    Log.i("tag", "Something went wrong")
+                }
+            })
 
+            adapter = BreweryAdapter(this)
 
-        vm.postModelListLiveData?.observe(this, Observer {
-            if (it!=null){
-                rv_home.visibility = View.VISIBLE
-                adapter.setData(it as ArrayList<PostModel>)
-            }else{
-                Log.i("tag","Something went wrong")
-            }
-           //progress_load.visibility = View.GONE
-        })
+            rv_home.layoutManager = LinearLayoutManager(this)
+            rv_home.adapter = adapter
 
+            //fragmenNavControl?.navigate(R.id.action_FirstFragment_to_SecondFragment)
+            Log.i("tag", "check a a navigation")
+        }
 
     }
 

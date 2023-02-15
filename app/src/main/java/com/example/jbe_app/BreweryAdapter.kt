@@ -1,14 +1,12 @@
 package com.example.jbe_app
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
-import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jbe_app.data.PostModel
-import kotlinx.android.synthetic.main.fragment_second.view.*
+import kotlinx.android.synthetic.main.item_view.view.*
 
 class BreweryAdapter(var listener: MainActivity) : RecyclerView.Adapter<BreweryAdapter.BreweryViewHolder>(){
 
@@ -35,9 +33,9 @@ class BreweryAdapter(var listener: MainActivity) : RecyclerView.Adapter<BreweryA
 
         val item = data?.get(position)
         holder.bindView(item)
-        holder.itemView.img_delete.setOnClickListener {
+        holder.itemView.img_favourite.setOnClickListener {
             item?.let { it1 ->
-                listener.onItemDeleted(it1, position)
+                Log.i("tag", "Clicked on delete")
             }
         }
     }
@@ -48,14 +46,11 @@ class BreweryAdapter(var listener: MainActivity) : RecyclerView.Adapter<BreweryA
         fun bindView(item: PostModel?) {
             val itemTitle = itemView.item_title
             val itemBody = itemView.item_body
-            //val itemTitle:TextView = itemView.findViewById(R.id.item_title)!!
-            //val itemBody: TextView = itemView.findViewById(R.id.item_body)!!
+            //val itemTitle:TextView = itemView.findViewById(R.id.item_title)
+            //val itemBody: TextView = itemView.findViewById(R.id.item_body)
 
             itemTitle.text = item?.name
             itemBody.text = item?.city
-
-                    //             itemView.test_title.text = item?.name
-            //            itemView.item_body.text = item?.city
         }
 
     }

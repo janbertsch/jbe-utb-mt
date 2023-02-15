@@ -35,12 +35,10 @@ class BreweryApiClient {
             return retrofit!!
         }
     }
-
 }
 
 interface BreweryApiInterface{
-    @GET("random?size=5")
+    @GET("random?size=6")
     fun fetchAllPosts():
             Call<List<PostModel>>
 }
-

@@ -3,58 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:tag="second_fragment"
     tools:context=".SecondFragment">
 
-    <TextView
-        android:id="@+id/textview_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/button_second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="468dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/previous"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/item_title"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="@id/img_delete"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/item_body"
-        android:textColor="@android:color/darker_gray"
-        android:textStyle="normal"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/item_title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_delete"
-        android:id="@+id/img_delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:padding="10dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:layout_width="wrap_content"

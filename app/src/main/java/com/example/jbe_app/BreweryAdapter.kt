@@ -35,7 +35,7 @@ class BreweryAdapter(var listener: MainActivity) : RecyclerView.Adapter<BreweryA
         holder.bindView(item)
         holder.itemView.img_favourite.setOnClickListener {
             item?.let { it1 ->
-                Log.i("tag", "Clicked on delete")
+                Log.i("tag", "Clicked on save to favourite")
             }
         }
     }

@@ -13,15 +13,11 @@ class BreweryListModelView(application: Application): AndroidViewModel(applicati
 
     private var brewery: Brewery? = Brewery()
     private var db: AppDatabase = AppDatabase.getInstance(getApplication<Application>().applicationContext)
-
     private val _postModelListLiveData = MutableLiveData<List<PostModel>?>()
     var postModelListLiveData: LiveData<List<PostModel>?> = _postModelListLiveData
-
     private val _deletePostLiveData = MutableLiveData<Boolean>()
     var deletePostLiveData: LiveData<Boolean> = _deletePostLiveData
-
-    private val _savedBreweries = MutableLiveData<List<PostModel>?>()
-    val savedBreweriesLiveData: LiveData<List<PostModel>?> = _savedBreweries
+    val savedBreweriesLiveData: LiveData<List<PostModel>> = db.postModelDao().getAll()
 
 
     init {
@@ -37,10 +33,16 @@ class BreweryListModelView(application: Application): AndroidViewModel(applicati
         }
     }
 
-    fun fetchSavedBreweries() {
+    fun toggleSaveBrewery(brewery: PostModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            val breweries = db.postModelDao().getAll()
-            _savedBreweries.postValue(breweries)
+            val savedBrewery = db.postModelDao().getById(brewery.name)
+            if (savedBrewery == null) {
+                // Brewery not saved, so save it
+                db.postModelDao().insertAll(brewery)
+            } else {
+                // Brewery already saved, so remove it
+                db.postModelDao().delete(brewery)
+            }
         }
     }
 }

@@ -4,22 +4,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.jbe_app.data.AppDatabase
 import com.example.jbe_app.data.PostModel
+import com.example.jbe_app.viewmodel.BreweryListModelView
 import kotlinx.android.synthetic.main.item_view.view.*
 
-class BreweryAdapter(var listener: FirstFragment, private val db: AppDatabase) : RecyclerView.Adapter<BreweryAdapter.BreweryViewHolder>(){
+class BreweryAdapter(private val lmv: BreweryListModelView) : RecyclerView.Adapter<BreweryAdapter.BreweryViewHolder>(){
 
     private var data : List<PostModel>?=null
     interface BreweryListener{
         fun onItemDeleted(postModel: PostModel, position: Int)
     }
 
-    fun setData(list: List<PostModel>){
-        data = list
-        notifyDataSetChanged()
+        fun setData(list: List<PostModel>){
+            data = list
+            notifyDataSetChanged()
     }
 
 
@@ -39,9 +38,8 @@ class BreweryAdapter(var listener: FirstFragment, private val db: AppDatabase) :
             item?.let { postModel ->
                 // Insert the item into the database in a background thread
                 Thread {
-                    db.postModelDao().insertAll(postModel)
+                    lmv.toggleSaveBrewery(postModel)
                 }.start()
-
                 Log.i("tag", "Saved to favorites: ${postModel.name}")
             }
         }
@@ -52,13 +50,9 @@ class BreweryAdapter(var listener: FirstFragment, private val db: AppDatabase) :
         fun bindView(item: PostModel?) {
             val itemTitle = itemView.item_title
             val itemBody = itemView.item_body
-            //val itemTitle:TextView = itemView.findViewById(R.id.item_title)
-            //val itemBody: TextView = itemView.findViewById(R.id.item_body)
 
             itemTitle.text = item?.name
             itemBody.text = item?.city
         }
-
     }
-
 }

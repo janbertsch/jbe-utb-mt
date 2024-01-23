@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.jbe_app.data.AppDatabase
 import com.example.jbe_app.data.PostModel
 import com.example.jbe_app.databinding.FragmentFirstBinding
 import com.example.jbe_app.viewmodel.BreweryListModelView
@@ -21,7 +20,6 @@ import com.example.jbe_app.viewmodel.BreweryListModelView
 
 class FirstFragment : Fragment(), BreweryAdapter.BreweryListener {
 
-    private val db by lazy { AppDatabase.getInstance(requireContext()) }
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: BreweryListModelView
@@ -42,7 +40,7 @@ class FirstFragment : Fragment(), BreweryAdapter.BreweryListener {
         viewModel = ViewModelProvider(this)[BreweryListModelView::class.java]
 
         // Initialize the adapter
-        adapter = BreweryAdapter(FirstFragment(), db)
+        adapter = BreweryAdapter(viewModel)
 
         // Setup RecyclerView
         binding.rvHome.layoutManager = LinearLayoutManager(context)

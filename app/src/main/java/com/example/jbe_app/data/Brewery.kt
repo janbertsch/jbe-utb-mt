@@ -1,18 +1,12 @@
 package com.example.jbe_app.data
 
-import android.annotation.SuppressLint
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.jbe_app.network.BreweryApiClient
 import com.example.jbe_app.network.BreweryApiInterface
-import retrofit2.Callback
-import retrofit2.Call
-import retrofit2.Response
+
 
 
 class Brewery {
-
     private var apiInterface:BreweryApiInterface?=null
 
     init {
@@ -29,7 +23,6 @@ class Brewery {
         } else {
             Log.i("api call", "Error: ${response?.code()} ${response?.message()}")
         }
-
         return posts
     }
 }

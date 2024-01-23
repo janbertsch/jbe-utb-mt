@@ -1,6 +1,10 @@
 package com.example.jbe_app.data
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity
 data class PostModel (
-    var name:String?="",
+    @PrimaryKey val name:String="",
     var city:String?=""
 )

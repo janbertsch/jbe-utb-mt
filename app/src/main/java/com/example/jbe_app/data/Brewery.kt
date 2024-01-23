@@ -19,33 +19,17 @@ class Brewery {
         apiInterface = BreweryApiClient.getApiClient().create(BreweryApiInterface::class.java)
     }
 
-    fun fetchAllPosts(): LiveData<List<PostModel>> {
-        val data = MutableLiveData<List<PostModel>>()
+    fun fetchAllPosts(): List<PostModel>? {
+        var posts: List<PostModel>? = null
 
-        apiInterface?.fetchAllPosts()?.enqueue(object : Callback<List<PostModel>>{
+        // Synchronously execute the call and return the result
+        val response = apiInterface?.fetchAllPosts()?.execute()
+        if (response?.isSuccessful == true) {
+            posts = response.body()
+        } else {
+            Log.i("api call", "Error: ${response?.code()} ${response?.message()}")
+        }
 
-            @SuppressLint("NullSafeMutableLiveData")
-            override fun onFailure(call: Call<List<PostModel>>, t: Throwable) {
-                data.value = null
-            }
-
-            @SuppressLint("NullSafeMutableLiveData")
-            override fun onResponse(
-                call: Call<List<PostModel>>,
-                response: Response<List<PostModel>>
-            ) {
-
-                val res = response.body()
-                if (response.code() == 200 &&  res!=null){
-                    Log.i("tag", "DID a FETCHALL with 200 " + res.toString())
-                    data.value = res
-                }else{
-                    data.value = null
-                }
-            }
-        })
-
-
-        return data
+        return posts
     }
 }

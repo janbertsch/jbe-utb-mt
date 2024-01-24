@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jbe_app.data.AppDatabase
 import com.example.jbe_app.data.PostModel
@@ -55,6 +56,10 @@ class SecondFragment() : Fragment() {
                 Log.i("tag", "Something went wrong")
             }
         })
+
+        binding.buttonSecond.setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        }
     }
 
     override fun onDestroyView() {
